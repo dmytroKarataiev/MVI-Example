@@ -2,15 +2,16 @@ package com.adammcneilly.tasklist.viewmodels
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.adammcneilly.tasklist.base.BaseAction
 import com.adammcneilly.tasklist.base.BaseStore
-import com.adammcneilly.tasklist.mvi.TaskList
-import com.adammcneilly.tasklist.mvi.TaskListAction
+import com.adammcneilly.tasklist.mvi.PaidState
+import com.adammcneilly.tasklist.mvi.TaskAction
 
-class StateViewModel(
-    store: BaseStore<TaskList, TaskListAction>
+class PaidStateViewModel(
+    store: BaseStore<PaidState, BaseAction>
 ) : ViewModel() {
 
-    val state = MutableLiveData<TaskList>()
+    val state = MutableLiveData<PaidState>()
 
     init {
         store.subscribe {

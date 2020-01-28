@@ -2,22 +2,25 @@ package com.adammcneilly.tasklist.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.adammcneilly.tasklist.base.BaseAction
 import com.adammcneilly.tasklist.base.BaseStore
-import com.adammcneilly.tasklist.mvi.TaskList
-import com.adammcneilly.tasklist.mvi.TaskListAction
-import com.adammcneilly.tasklist.mvi.TaskListAdState
-import com.adammcneilly.tasklist.mvi.TaskListItemState
-import com.adammcneilly.tasklist.mvi.TaskListReducer
+import com.adammcneilly.tasklist.base.Dispatcher
+import com.adammcneilly.tasklist.mvi.AdAction
+import com.adammcneilly.tasklist.mvi.FreeReducer
+import com.adammcneilly.tasklist.mvi.FreeState
+import com.adammcneilly.tasklist.mvi.TaskAction
+import com.adammcneilly.tasklist.mvi.AdState
+import com.adammcneilly.tasklist.mvi.TaskState
 import com.adammcneilly.tasklist.repos.InMemoryAdsService
 import com.adammcneilly.tasklist.repos.InMemoryTaskService
 
 @Suppress("UNCHECKED_CAST")
-object TaskListViewModelFactory : ViewModelProvider.Factory {
+object FreeViewModelFactory : ViewModelProvider.Factory {
 
-    private val store: BaseStore<TaskList, TaskListAction> =
+    private val store: BaseStore<FreeState, BaseAction> =
         BaseStore(
-            TaskList(TaskListItemState.Loading(), TaskListAdState.Loading()),
-            TaskListReducer()
+            FreeState(TaskState.Loading(), AdState.Loading()),
+            FreeReducer()
         )
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
@@ -28,17 +31,17 @@ object TaskListViewModelFactory : ViewModelProvider.Factory {
 
                 return TaskListViewModel(
                     repository,
-                    store
+                    store as Dispatcher<TaskAction>
                 ) as T
             }
             modelClass.isAssignableFrom(AddsViewModel::class.java) -> {
                 val repo = InMemoryAdsService()
                 return AddsViewModel(
-                    repo, store
+                    repo, store as Dispatcher<AdAction>
                 ) as T
             }
-            modelClass.isAssignableFrom(StateViewModel::class.java) -> {
-                return StateViewModel(
+            modelClass.isAssignableFrom(FreeStateViewModel::class.java) -> {
+                return FreeStateViewModel(
                     store
                 ) as T
             }

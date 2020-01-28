@@ -1,19 +1,9 @@
 package com.adammcneilly.tasklist.base
 
-interface BaseAction
-
-interface BaseState
-
-abstract class Reducer<S : BaseState, T : BaseAction> {
-
-    abstract fun reduce(action: T, state: S): S
-
-}
-
 class BaseStore<S : BaseState, T : BaseAction>(
     initialState: S,
     private val reducer: Reducer<S, T>
-) {
+) : Dispatcher<T> {
 
     private var stateListener: ((S) -> Unit)? = null
 
@@ -23,7 +13,7 @@ class BaseStore<S : BaseState, T : BaseAction>(
             stateListener?.invoke(value)
         }
 
-    fun dispatch(action: T) {
+    override fun dispatch(action: T) {
         currentState = reducer.reduce(action, currentState)
     }
 

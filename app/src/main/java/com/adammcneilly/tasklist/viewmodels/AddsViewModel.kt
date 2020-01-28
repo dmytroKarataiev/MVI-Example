@@ -3,9 +3,8 @@ package com.adammcneilly.tasklist.viewmodels
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.adammcneilly.tasklist.base.BaseStore
-import com.adammcneilly.tasklist.mvi.TaskList
-import com.adammcneilly.tasklist.mvi.TaskListAction
+import com.adammcneilly.tasklist.base.Dispatcher
+import com.adammcneilly.tasklist.mvi.AdAction
 import com.adammcneilly.tasklist.repos.AdsRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -13,7 +12,7 @@ import kotlinx.coroutines.launch
 
 class AddsViewModel(
     private val repository: AdsRepository,
-    private val store: BaseStore<TaskList, TaskListAction>
+    private val dispatcher: Dispatcher<AdAction>
 ) : ViewModel() {
 
     init {
@@ -22,16 +21,16 @@ class AddsViewModel(
     }
 
     private fun fetchAds() {
-        store.dispatch(TaskListAction.AdLoading)
+        dispatcher.dispatch(AdAction.AdLoading)
 
         try {
             viewModelScope.launch(Dispatchers.IO) {
                 delay(500)
                 val ad = repository.getAd()
-                store.dispatch(TaskListAction.AdsLoaded(ad))
+                dispatcher.dispatch(AdAction.AdsLoaded(ad))
             }
         } catch (e: Throwable) {
-            store.dispatch(TaskListAction.AdErrored(e))
+            dispatcher.dispatch(AdAction.AdErrored(e))
         }
     }
 

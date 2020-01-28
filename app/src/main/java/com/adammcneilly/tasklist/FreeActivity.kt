@@ -1,5 +1,6 @@
 package com.adammcneilly.tasklist
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -7,36 +8,35 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.adammcneilly.tasklist.adapters.TaskAdapter
-import com.adammcneilly.tasklist.databinding.ActivityTaskListBinding
-import com.adammcneilly.tasklist.mvi.TaskListAdState
-import com.adammcneilly.tasklist.mvi.TaskListItemState
+import com.adammcneilly.tasklist.databinding.ActivityFreeBinding
+import com.adammcneilly.tasklist.mvi.AdState
+import com.adammcneilly.tasklist.mvi.TaskState
 import com.adammcneilly.tasklist.viewmodels.AddsViewModel
-import com.adammcneilly.tasklist.viewmodels.StateViewModel
+import com.adammcneilly.tasklist.viewmodels.FreeStateViewModel
 import com.adammcneilly.tasklist.viewmodels.TaskListViewModel
-import com.adammcneilly.tasklist.viewmodels.TaskListViewModelFactory
-import kotlinx.android.synthetic.main.activity_task_list.*
+import com.adammcneilly.tasklist.viewmodels.FreeViewModelFactory
+import kotlinx.android.synthetic.main.activity_free.*
+import kotlinx.android.synthetic.main.activity_paid.fab
 
-class TaskListActivity : AppCompatActivity() {
+class FreeActivity : AppCompatActivity() {
 
-    private val tasksViewModel: TaskListViewModel by viewModels { TaskListViewModelFactory }
-    private val adViewModel: AddsViewModel by viewModels { TaskListViewModelFactory }
-    private val viewModel: StateViewModel by viewModels { TaskListViewModelFactory }
+    private val tasksViewModel: TaskListViewModel by viewModels { FreeViewModelFactory }
+    private val adViewModel: AddsViewModel by viewModels { FreeViewModelFactory }
+    private val viewModel: FreeStateViewModel by viewModels { FreeViewModelFactory }
 
     private val taskAdapter = TaskAdapter()
 
-    private lateinit var binding: ActivityTaskListBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityTaskListBinding.inflate(layoutInflater)
+        val binding = ActivityFreeBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
-        setupViewModel()
-        initializeRecyclerView()
+        setupViewModel(binding)
+        initializeRecyclerView(binding)
     }
 
-    private fun setupViewModel() {
+    private fun setupViewModel(binding: ActivityFreeBinding) {
 
         viewModel.init()
         adViewModel.init()
@@ -46,34 +46,34 @@ class TaskListActivity : AppCompatActivity() {
         binding.viewModel = viewModel
 
         fab.setOnClickListener {
-            tasksViewModel.addButtonClicked()
+            startActivity(Intent(this, PaidActivity::class.java))
         }
 
         viewModel.state.observe(this, Observer { state ->
             when (state.ad) {
-                is TaskListAdState.Loading -> {
+                is AdState.Loading -> {
                     Toast.makeText(this, "Loading Task", Toast.LENGTH_SHORT).show()
                 }
-                is TaskListAdState.Loaded -> {
+                is AdState.Loaded -> {
                     ad.text = state.ad.ad.description
                 }
-                is TaskListAdState.Error -> {
+                is AdState.Error -> {
                     Toast.makeText(this, "Error Task", Toast.LENGTH_SHORT).show()
                 }
             }
             when (state.task) {
-                is TaskListItemState.Loading -> {
+                is TaskState.Loading -> {
                     Toast.makeText(this, "Loading Ad", Toast.LENGTH_SHORT).show()
                 }
-                is TaskListItemState.Loaded -> state.task.tasks.let(taskAdapter::tasks::set)
-                is TaskListItemState.Error -> {
+                is TaskState.Loaded -> state.task.tasks.let(taskAdapter::tasks::set)
+                is TaskState.Error -> {
                     Toast.makeText(this, "Error Ad", Toast.LENGTH_SHORT).show()
                 }
             }
         })
     }
 
-    private fun initializeRecyclerView() {
+    private fun initializeRecyclerView(binding: ActivityFreeBinding) {
         binding.taskList.adapter = taskAdapter
         binding.taskList.layoutManager = LinearLayoutManager(this)
     }

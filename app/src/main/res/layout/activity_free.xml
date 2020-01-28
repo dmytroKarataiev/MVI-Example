@@ -7,11 +7,11 @@
 
         <variable
             name="viewModel"
-            type="com.adammcneilly.tasklist.viewmodels.StateViewModel" />
+            type="com.adammcneilly.tasklist.viewmodels.FreeStateViewModel" />
 
-        <import type="com.adammcneilly.tasklist.mvi.TaskListItemState" />
+        <import type="com.adammcneilly.tasklist.mvi.TaskState" />
 
-        <import type="com.adammcneilly.tasklist.mvi.TaskListAdState" />
+        <import type="com.adammcneilly.tasklist.mvi.AdState" />
 
     </data>
 
@@ -41,7 +41,7 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <TextView
-                app:visibilityCondition="@{viewModel.state.ad instanceof TaskListAdState.Loaded}"
+                app:visibilityCondition="@{viewModel.state.ad instanceof AdState.Loaded}"
                 android:id="@+id/ad"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -53,7 +53,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:visibility="visible"
-                app:visibilityCondition="@{viewModel.state.task instanceof TaskListItemState.Loaded}" />
+                app:visibilityCondition="@{viewModel.state.task instanceof TaskState.Loaded}" />
 
         </LinearLayout>
 
@@ -63,7 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:visibility="gone"
-            app:visibilityCondition="@{viewModel.state.task instanceof TaskListItemState.Loading}" />
+            app:visibilityCondition="@{viewModel.state.task instanceof TaskState.Loading}" />
 
         <TextView
             android:id="@+id/error_text"
@@ -72,7 +72,7 @@
             android:layout_gravity="center"
             android:text="@string/unable_to_fetch_tasks"
             android:visibility="gone"
-            app:visibilityCondition="@{viewModel.state.task instanceof TaskListItemState.Error}" />
+            app:visibilityCondition="@{viewModel.state.task instanceof TaskState.Error}" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
