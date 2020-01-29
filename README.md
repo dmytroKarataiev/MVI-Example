@@ -5,7 +5,8 @@ https://github.com/AdamMc331/MVWTF
 
 ## UML Class diagram 
 Based on my limited understanding of UML the architecture looks something like that:
-[mvi uml diagram.png](resources/mvi uml diagram.png)
+
+![UML Diagram](resources/mvi_uml_diagram.png)
 
 ## Why MVI?
 When you have a very complicated screen that consumes 4+ ViewModels it gets extremely hard to manager screen state. 
