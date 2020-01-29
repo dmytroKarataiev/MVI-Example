@@ -1,9 +1,13 @@
 package com.adammcneilly.tasklist.base
 
+/**
+ * Base class that you need to instantiate with the needed State and Reducer that does
+ * the actual reduction of States and emits new States to observers.
+ */
 class BaseStore<S : BaseState, T : BaseAction>(
     initialState: S,
     private val reducer: Reducer<S, T>
-) : Dispatcher<T> {
+) : Dispatcher<T>, Subscriber<S> {
 
     private var stateListener: ((S) -> Unit)? = null
 
@@ -17,7 +21,7 @@ class BaseStore<S : BaseState, T : BaseAction>(
         currentState = reducer.reduce(action, currentState)
     }
 
-    fun subscribe(stateListener: ((S) -> Unit)?) {
+    override fun subscribe(stateListener: ((S) -> Unit)?) {
         this.stateListener = stateListener
     }
 

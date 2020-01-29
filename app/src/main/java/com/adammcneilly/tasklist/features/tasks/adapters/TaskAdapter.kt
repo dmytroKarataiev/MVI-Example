@@ -1,4 +1,4 @@
-package com.adammcneilly.tasklist.adapters
+package com.adammcneilly.tasklist.features.tasks.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -20,7 +20,9 @@ class TaskAdapter : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
         val context = parent.context
         val inflater = LayoutInflater.from(context)
         val view = inflater.inflate(R.layout.list_item_task, parent, false)
-        return TaskViewHolder(view)
+        return TaskViewHolder(
+            view
+        )
     }
 
     override fun getItemCount(): Int {

@@ -1,4 +1,4 @@
-package com.adammcneilly.tasklist
+package com.adammcneilly.tasklist.features.paid
 
 import android.os.Bundle
 import android.widget.Toast
@@ -6,20 +6,21 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.adammcneilly.tasklist.adapters.TaskAdapter
+import com.adammcneilly.tasklist.features.tasks.adapters.TaskAdapter
 import com.adammcneilly.tasklist.databinding.ActivityPaidBinding
-import com.adammcneilly.tasklist.mvi.TaskState
-import com.adammcneilly.tasklist.viewmodels.PaidStateViewModel
-import com.adammcneilly.tasklist.viewmodels.PaidViewModelFactory
-import com.adammcneilly.tasklist.viewmodels.TaskListViewModel
+import com.adammcneilly.tasklist.features.paid.viewmodels.PaidStateViewModel
+import com.adammcneilly.tasklist.features.paid.viewmodels.PaidViewModelFactory
+import com.adammcneilly.tasklist.features.tasks.mvi.TaskState
+import com.adammcneilly.tasklist.features.tasks.viewmodels.TasksViewModel
 import kotlinx.android.synthetic.main.activity_paid.*
 
 class PaidActivity : AppCompatActivity() {
 
-    private val tasksViewModel: TaskListViewModel by viewModels { PaidViewModelFactory }
+    private val tasksViewModel: TasksViewModel by viewModels { PaidViewModelFactory }
     private val viewModel: PaidStateViewModel by viewModels { PaidViewModelFactory }
 
-    private val taskAdapter = TaskAdapter()
+    private val taskAdapter =
+        TaskAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

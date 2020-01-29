@@ -1,25 +1,25 @@
-package com.adammcneilly.tasklist.viewmodels
+package com.adammcneilly.tasklist.features.tasks.viewmodels
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.adammcneilly.tasklist.base.Dispatcher
 import com.adammcneilly.tasklist.data.Task
-import com.adammcneilly.tasklist.mvi.TaskAction
-import com.adammcneilly.tasklist.repos.TaskRepository
+import com.adammcneilly.tasklist.features.tasks.mvi.TaskAction
+import com.adammcneilly.tasklist.features.tasks.repos.TaskRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.random.Random
 
-class TaskListViewModel(
+class TasksViewModel(
     private val repository: TaskRepository,
     private val dispatcher: Dispatcher<TaskAction>
 ) : ViewModel() {
 
     init {
-        Log.v(TaskListViewModel::class.java.simpleName, "Init called")
+        Log.v(TasksViewModel::class.java.simpleName, "Init called")
         fetchTasks()
     }
 

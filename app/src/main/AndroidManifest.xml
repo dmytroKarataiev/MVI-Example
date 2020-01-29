@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
         <activity
-            android:name="com.adammcneilly.tasklist.FreeActivity"
+            android:name="com.adammcneilly.tasklist.features.free.FreeActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".PaidActivity"
+            android:name=".features.paid.PaidActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>

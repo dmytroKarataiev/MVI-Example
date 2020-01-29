@@ -7,11 +7,11 @@
 
         <variable
             name="viewModel"
-            type="com.adammcneilly.tasklist.viewmodels.FreeStateViewModel" />
+            type="com.adammcneilly.tasklist.features.free.viewmodels.FreeStateViewModel" />
 
-        <import type="com.adammcneilly.tasklist.mvi.TaskState" />
+        <import type="com.adammcneilly.tasklist.features.tasks.mvi.TaskState" />
 
-        <import type="com.adammcneilly.tasklist.mvi.AdState" />
+        <import type="com.adammcneilly.tasklist.features.free.mvi.AdState" />
 
     </data>
 

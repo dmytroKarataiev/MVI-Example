@@ -1,4 +1,4 @@
-package com.adammcneilly.tasklist.mvi
+package com.adammcneilly.tasklist.features.tasks.mvi
 
 import com.adammcneilly.tasklist.base.BaseAction
 import com.adammcneilly.tasklist.data.Task

@@ -7,9 +7,9 @@
 
         <variable
             name="viewModel"
-            type="com.adammcneilly.tasklist.viewmodels.PaidStateViewModel" />
+            type="com.adammcneilly.tasklist.features.paid.viewmodels.PaidStateViewModel" />
 
-        <import type="com.adammcneilly.tasklist.mvi.TaskState" />
+        <import type="com.adammcneilly.tasklist.features.tasks.mvi.TaskState" />
 
     </data>
 

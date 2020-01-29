@@ -1,8 +1,9 @@
-package com.adammcneilly.tasklist.repos
+package com.adammcneilly.tasklist.features.tasks.repos
 
 import com.adammcneilly.tasklist.data.Task
 
-class InMemoryTaskService : TaskRepository {
+class InMemoryTaskService :
+    TaskRepository {
     override fun getTasks(): List<Task> {
         return listOf(
             Task("Sample task 1"),

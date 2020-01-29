@@ -1,4 +1,4 @@
-package com.adammcneilly.tasklist
+package com.adammcneilly.tasklist.features.free
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,24 +7,26 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.adammcneilly.tasklist.adapters.TaskAdapter
+import com.adammcneilly.tasklist.features.paid.PaidActivity
+import com.adammcneilly.tasklist.features.tasks.adapters.TaskAdapter
 import com.adammcneilly.tasklist.databinding.ActivityFreeBinding
-import com.adammcneilly.tasklist.mvi.AdState
-import com.adammcneilly.tasklist.mvi.TaskState
-import com.adammcneilly.tasklist.viewmodels.AddsViewModel
-import com.adammcneilly.tasklist.viewmodels.FreeStateViewModel
-import com.adammcneilly.tasklist.viewmodels.TaskListViewModel
-import com.adammcneilly.tasklist.viewmodels.FreeViewModelFactory
+import com.adammcneilly.tasklist.features.free.mvi.AdState
+import com.adammcneilly.tasklist.features.free.viewmodels.AddsViewModel
+import com.adammcneilly.tasklist.features.free.viewmodels.FreeStateViewModel
+import com.adammcneilly.tasklist.features.free.viewmodels.FreeViewModelFactory
+import com.adammcneilly.tasklist.features.tasks.mvi.TaskState
+import com.adammcneilly.tasklist.features.tasks.viewmodels.TasksViewModel
 import kotlinx.android.synthetic.main.activity_free.*
 import kotlinx.android.synthetic.main.activity_paid.fab
 
 class FreeActivity : AppCompatActivity() {
 
-    private val tasksViewModel: TaskListViewModel by viewModels { FreeViewModelFactory }
+    private val tasksViewModel: TasksViewModel by viewModels { FreeViewModelFactory }
     private val adViewModel: AddsViewModel by viewModels { FreeViewModelFactory }
     private val viewModel: FreeStateViewModel by viewModels { FreeViewModelFactory }
 
-    private val taskAdapter = TaskAdapter()
+    private val taskAdapter =
+        TaskAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

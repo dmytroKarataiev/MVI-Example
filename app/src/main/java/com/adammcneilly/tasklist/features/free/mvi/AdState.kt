@@ -1,4 +1,4 @@
-package com.adammcneilly.tasklist.mvi
+package com.adammcneilly.tasklist.features.free.mvi
 
 import android.os.Parcelable
 import com.adammcneilly.tasklist.base.BaseState

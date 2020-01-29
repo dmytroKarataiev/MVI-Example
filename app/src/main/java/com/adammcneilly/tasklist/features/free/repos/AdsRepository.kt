@@ -1,4 +1,4 @@
-package com.adammcneilly.tasklist.repos
+package com.adammcneilly.tasklist.features.free.repos
 
 import com.adammcneilly.tasklist.data.Ad
 
